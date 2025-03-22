@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueberry Bakery - Fresh & Delicious Treats</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --primary-color: #4a4e8c;
+            --secondary-color: #8b5fbf;
+            --accent-color: #ff6b6b;
+            --background-color: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(74, 78, 140, 0.8), rgba(74, 78, 140, 0.8)),
+                        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .products {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff5252;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blueberry Bakery</h1>
+        <p>Fresh & Delicious Treats Made with Love</p>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Blueberry Bakery</h1>
+            <p>Discover our handcrafted delights made with the finest ingredients</p>
+            <button class="btn" onclick="scrollToProducts()">Explore Our Products</button>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cakes">
+            <div class="product-info">
+                <h3>Custom Cakes</h3>
+                <p>Beautifully decorated cakes for all occasions</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1534620808146-d33bb39128c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pastries">
+            <div class="product-info">
+                <h3>Fresh Pastries</h3>
+                <p>Flaky and delicious pastries made daily</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cupcakes">
+            <div class="product-info">
+                <h3>Cupcakes</h3>
+                <p>Adorable cupcakes with creative toppings</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Croissants">
+            <div class="product-info">
+                <h3>Croissants</h3>
+                <p>Buttery and flaky French-style croissants</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pies">
+            <div class="product-info">
+                <h3>Fresh Pies</h3>
+                <p>Homemade pies with seasonal fillings</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Doughnuts">
+            <div class="product-info">
+                <h3>Doughnuts</h3>
+                <p>Freshly made doughnuts with various glazes</p>
+                <button class="btn">Order Now</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Blueberry Bakery. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add animation to product cards on scroll
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (cardTop < windowHeight * 0.8) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
