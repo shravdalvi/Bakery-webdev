@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Blueberry Bakery - Fresh & Delicious Treats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,86 +14,101 @@
         }
 
         :root {
-            --primary-color: #4a4e8c;
-            --secondary-color: #8b5fbf;
-            --accent-color: #ff6b6b;
-            --background-color: #f8f9fa;
+            --primary-color: #341515;
+            --secondary-color: #795d4c;
+            --accent-color: #4d0a18;
+            --background-color: #aca494;
         }
 
         body {
             background-color: var(--background-color);
         }
 
-        header {
+        /* Navbar Styles */
+        .navbar {
             background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
             color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links i {
+            font-size: 1.2rem;
         }
 
         .hero {
-            background: linear-gradient(rgba(74, 78, 140, 0.8), rgba(74, 78, 140, 0.8)),
-                        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+            position: relative;
             height: 60vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
             text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            padding: 2rem;
+            border-radius: 15px;
+            
         }
 
         .hero-content h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
         .hero-content p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .products {
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-card img {
+        .hero video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-        .product-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .product-info p {
-            color: #666;
-            margin-bottom: 1rem;
+            z-index: 1;
         }
 
         .btn {
@@ -103,11 +118,122 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
             background-color: #ff5252;
+            box-shadow: 0 0 20px rgba(255, 82, 82, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .btn:hover::before {
+            transform: scale(1);
+        }
+
+        .treats {
+            padding: 4rem 2rem;
+            display: flex;
+            overflow-x: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            height: 400px;
+        }
+
+        .treat-card {
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            position: absolute;
+            transform-origin: center;
+            cursor: pointer;
+            opacity: 0.7;
+            transform: translateX(0) scale(0.9);
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+        }
+
+        .treat-card:nth-child(1) { top: 0; z-index: 6; }
+        .treat-card:nth-child(2) { top: 20px; z-index: 5; }
+        .treat-card:nth-child(3) { top: 40px; z-index: 4; }
+        .treat-card:nth-child(4) { top: 60px; z-index: 3; }
+        .treat-card:nth-child(5) { top: 80px; z-index: 2; }
+        .treat-card:nth-child(6) { top: 100px; z-index: 1; }
+
+        .treat-card.active {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            z-index: 10;
+            top: 0;
+        }
+
+        .treat-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .treat-info {
+            padding: 1.5rem;
+        }
+
+        .treat-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .treat-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            z-index: 20;
+        }
+
+        .scroll-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .scroll-left {
+            left: 1rem;
+        }
+
+        .scroll-right {
+            right: 1rem;
         }
 
         footer {
@@ -119,116 +245,182 @@
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
             .hero-content h1 {
                 font-size: 2.5rem;
             }
             
-            .products {
-                grid-template-columns: 1fr;
+            .treats {
+                height: 350px;
             }
-=======
-    <title>Sweet Treats Bakery</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            background-color: #fffaf0;
+            
+            .treat-card {
+                min-width: 250px;
+            }
         }
-        header {
-            background-color: #ffcc99;
-            padding: 20px;
-            font-size: 24px;
+
+        /* Login Popup Styles */
+        .login-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
         }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #000;
-            font-weight: bold;
-        }
-        .section {
-            padding: 40px;
-        }
-        .menu-item {
-            display: inline-block;
-            margin: 20px;
-            padding: 20px;
-            background: #ffe6cc;
+
+        .login-content {
+            background-color: white;
+            padding: 2rem;
             border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
         }
-        footer {
-            background-color: #ffcc99;
-            padding: 10px;
-            margin-top: 20px;
->>>>>>> 03acaab7d1ded6558282d0231d4602d31e4288ad
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-form input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #ff5252;
         }
     </style>
 </head>
 <body>
-    <header>
-<<<<<<< HEAD
-        <h1>Blueberry Bakery</h1>
-        <p>Fresh & Delicious Treats Made with Love</p>
-    </header>
+    <nav class="navbar">
+        <a href="#" class="logo"><i class="fas fa-bread-slice"></i> Blueberry</a>
+        <div class="nav-links">
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+            <a href="#treats"><i class="fas fa-cookie-bite"></i> Treats</a>
+            <a href="#offers"><i class="fas fa-gift"></i> Offers</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="#" onclick="toggleLogin()"><i class="fas fa-user"></i> Login</a>
+        </div>
+    </nav>
+
+    <!-- Login Popup -->
+    <div class="login-popup" id="loginPopup">
+        <div class="login-content">
+            <span class="close-btn" onclick="toggleLogin()">&times;</span>
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Login</h2>
+            <form class="login-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Welcome to Blueberry Bakery</h1>
+            <h1>Welcome to Blueberry</h1>
             <p>Discover our handcrafted delights made with the finest ingredients</p>
-            <button class="btn" onclick="scrollToProducts()">Explore Our Products</button>
+            <button class="btn" onclick="scrollToTreats()">Choose your Treat</button>
         </div>
+        <video autoplay muted loop playsinline>
+            <source src="bakery.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+        </video>
     </section>
 
-    <section class="products" id="products">
-        <div class="product-card">
+    <section class="treats" id="treats">
+        <button class="scroll-btn scroll-left" onclick="scrollTreats(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right" onclick="scrollTreats(1)"><i class="fas fa-chevron-right"></i></button>
+        
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cakes">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Custom Cakes</h3>
                 <p>Beautifully decorated cakes for all occasions</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1534620808146-d33bb39128c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pastries">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Fresh Pastries</h3>
                 <p>Flaky and delicious pastries made daily</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cupcakes">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Cupcakes</h3>
                 <p>Adorable cupcakes with creative toppings</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Croissants">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Croissants</h3>
                 <p>Buttery and flaky French-style croissants</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pies">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Fresh Pies</h3>
                 <p>Homemade pies with seasonal fillings</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Doughnuts">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Doughnuts</h3>
                 <p>Freshly made doughnuts with various glazes</p>
                 <button class="btn">Order Now</button>
@@ -241,55 +433,54 @@
     </footer>
 
     <script>
-        function scrollToProducts() {
-            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        function scrollToTreats() {
+            document.getElementById('treats').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Add animation to product cards on scroll
-        window.addEventListener('scroll', function() {
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (cardTop < windowHeight * 0.8) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
+        let currentCardIndex = 0;
+        const cards = document.querySelectorAll('.treat-card');
+
+        function scrollTreats(direction) {
+            // Remove active class from current card
+            cards[currentCardIndex].classList.remove('active');
+            
+            // Update current card index
+            currentCardIndex = (currentCardIndex + direction + cards.length) % cards.length;
+            
+            // Add active class to new current card
+            cards[currentCardIndex].classList.add('active');
+        }
+
+        // Initialize first card as active
+        cards[0].classList.add('active');
+
+        // Update scroll buttons click handlers
+        document.querySelector('.scroll-left').onclick = () => scrollTreats(-1);
+        document.querySelector('.scroll-right').onclick = () => scrollTreats(1);
+
+        // Add login popup functionality
+        function toggleLogin() {
+            const popup = document.getElementById('loginPopup');
+            popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('loginPopup');
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        }
+
+        // Add card selection functionality
+        document.querySelectorAll('.treat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active class from all cards
+                document.querySelectorAll('.treat-card').forEach(c => c.classList.remove('active'));
+                // Add active class to clicked card
+                this.classList.add('active');
             });
         });
     </script>
 </body>
 </html> 
-=======
-        <h1>Sweet Treats Bakery</h1>
-        <nav>
-            <a href="#menu">Menu</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
-    
-    <section id="menu" class="section">
-        <h2>Our Menu</h2>
-        <div class="menu-item">🍰 Chocolate Cake - $10</div>
-        <div class="menu-item">🧁 Cupcakes - $5</div>
-        <div class="menu-item">🍪 Cookies - $3</div>
-    </section>
-    
-    <section id="about" class="section">
-        <h2>About Us</h2>
-        <p>Welcome to Sweet Treats Bakery, where we create the finest baked goods with love and care. Our mission is to bring joy through our delicious treats.</p>
-    </section>
-    
-    <section id="contact" class="section">
-        <h2>Contact Us</h2>
-        <p>Email: info@sweettreats.com</p>
-        <p>Phone: (123) 456-7890</p>
-    </section>
-    
-    <footer>
-        <p>&copy; 2025 Sweet Treats Bakery. All rights reserved.</p>
-    </footer>
-</body>
-</html>
->>>>>>> 03acaab7d1ded6558282d0231d4602d31e4288ad

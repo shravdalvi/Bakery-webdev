@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueberry Bakery - Delicious Pies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --primary-color: #341515;
+            --secondary-color: #795d4c;
+            --accent-color: #4d0a18;
+            --background-color: #aca494;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links i {
+            font-size: 1.2rem;
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            margin-top: 4rem;
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slide-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+        }
+
+        /* Pie Categories Styles */
+        .pie-category {
+            padding: 4rem 2rem;
+            background-color: white;
+            margin: 2rem 0;
+        }
+
+        .category-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .pie-grid {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 1rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .pie-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pie-card {
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pie-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .pie-info {
+            padding: 1.5rem;
+        }
+
+        .pie-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .pie-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff5252;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            z-index: 2;
+        }
+
+        .scroll-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .scroll-left {
+            left: 1rem;
+        }
+
+        .scroll-right {
+            right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .slide-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fas fa-bread-slice"></i> Blueberry</a>
+        <div class="nav-links">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="index.html#treats"><i class="fas fa-cookie-bite"></i> Treats</a>
+            <a href="index.html#offers"><i class="fas fa-gift"></i> Offers</a>
+            <a href="index.html#about"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="index.html#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="#" onclick="toggleLogin()"><i class="fas fa-user"></i> Login</a>
+        </div>
+    </nav>
+
+    <!-- Slideshow -->
+    <div class="slideshow-container">
+        <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Apple Pie">
+            <div class="slide-content">
+                <h2>Delicious Pies</h2>
+                <p>Made with love and the finest ingredients</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cherry Pie">
+            <div class="slide-content">
+                <h2>Fresh & Seasonal</h2>
+                <p>Using the best seasonal fruits</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chocolate Pie">
+            <div class="slide-content">
+                <h2>Chocolate Delights</h2>
+                <p>Rich and decadent chocolate creations</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1562007472-11a49b71147c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Pecan Pie">
+            <div class="slide-content">
+                <h2>Classic Favorites</h2>
+                <p>Traditional recipes with a modern twist</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1585109649139-366815a0d713?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Special Pies">
+            <div class="slide-content">
+                <h2>Special Creations</h2>
+                <p>Unique combinations for special occasions</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fruit Pies Section -->
+    <section class="pie-category">
+        <h2 class="category-title">Fruit Pies</h2>
+        <div class="pie-grid" id="fruitPies">
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Apple Pie">
+                <div class="pie-info">
+                    <h3>Classic Apple Pie</h3>
+                    <p>Made with fresh apples and cinnamon</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1519676867240-f03562e64548?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cherry Pie">
+                <div class="pie-info">
+                    <h3>Sweet Cherry Pie</h3>
+                    <p>Fresh cherries with a hint of almond</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1562007472-11a49b71147c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Blueberry Pie">
+                <div class="pie-info">
+                    <h3>Blueberry Pie</h3>
+                    <p>Wild blueberries with lemon zest</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1585109649139-366815a0d713?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Strawberry Pie">
+                <div class="pie-info">
+                    <h3>Strawberry Pie</h3>
+                    <p>Fresh strawberries with vanilla cream</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-btn scroll-left" onclick="scrollPies('fruitPies', -300)"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right" onclick="scrollPies('fruitPies', 300)"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <!-- Chocolate Pies Section -->
+    <section class="pie-category">
+        <h2 class="category-title">Chocolate Pies</h2>
+        <div class="pie-grid" id="chocolatePies">
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Chocolate Pie">
+                <div class="pie-info">
+                    <h3>Classic Chocolate Pie</h3>
+                    <p>Rich dark chocolate with whipped cream</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Chocolate Mousse Pie">
+                <div class="pie-info">
+                    <h3>Chocolate Mousse Pie</h3>
+                    <p>Light and fluffy chocolate mousse</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Chocolate Peanut Butter Pie">
+                <div class="pie-info">
+                    <h3>Chocolate Peanut Butter Pie</h3>
+                    <p>Perfect blend of chocolate and peanut butter</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-btn scroll-left" onclick="scrollPies('chocolatePies', -300)"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right" onclick="scrollPies('chocolatePies', 300)"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <!-- Special Pies Section -->
+    <section class="pie-category">
+        <h2 class="category-title">Special Pies</h2>
+        <div class="pie-grid" id="specialPies">
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1562007472-11a49b71147c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pecan Pie">
+                <div class="pie-info">
+                    <h3>Classic Pecan Pie</h3>
+                    <p>Southern-style with maple syrup</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1562007472-11a49b71147c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Key Lime Pie">
+                <div class="pie-info">
+                    <h3>Key Lime Pie</h3>
+                    <p>Tangy and refreshing with graham crust</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="https://images.unsplash.com/photo-1562007472-11a49b71147c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Banana Cream Pie">
+                <div class="pie-info">
+                    <h3>Banana Cream Pie</h3>
+                    <p>Fresh bananas with vanilla custard</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-btn scroll-left" onclick="scrollPies('specialPies', -300)"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right" onclick="scrollPies('specialPies', 300)"><i class="fas fa-chevron-right"></i></button>
+    </section>
+
+    <script>
+        // Slideshow functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Horizontal scroll functionality
+        function scrollPies(containerId, amount) {
+            const container = document.getElementById(containerId);
+            container.scrollBy({
+                left: amount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html> 

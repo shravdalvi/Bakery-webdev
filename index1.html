@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blueberry Bakery - Fresh & Delicious Treats</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,26 +14,62 @@
         }
 
         :root {
-            --primary-color: #4a4e8c;
-            --secondary-color: #8b5fbf;
-            --accent-color: #ff6b6b;
-            --background-color: #f8f9fa;
+            --primary-color: #341515;
+            --secondary-color: #795d4c;
+            --accent-color: #4d0a18;
+            --background-color: #aca494;
         }
 
         body {
             background-color: var(--background-color);
         }
 
-        header {
+        /* Navbar Styles */
+        .navbar {
             background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2.5rem;
             color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links i {
+            font-size: 1.2rem;
         }
 
         .hero {
-            background: linear-gradient(rgba(74, 78, 140, 0.8), rgba(74, 78, 140, 0.8)),
+            background: var(--secondary-color),
                         url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
@@ -54,7 +91,7 @@
             margin-bottom: 2rem;
         }
 
-        .products {
+        .treats {
             padding: 4rem 2rem;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -63,7 +100,7 @@
             margin: 0 auto;
         }
 
-        .product-card {
+        .treat-card {
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -71,26 +108,26 @@
             transition: transform 0.3s ease;
         }
 
-        .product-card:hover {
+        .treat-card:hover {
             transform: translateY(-5px);
         }
 
-        .product-card img {
+        .treat-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
 
-        .product-info {
+        .treat-info {
             padding: 1.5rem;
         }
 
-        .product-info h3 {
+        .treat-info h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        .product-info p {
+        .treat-info p {
             color: #666;
             margin-bottom: 1rem;
         }
@@ -118,79 +155,175 @@
         }
 
         @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
             .hero-content h1 {
                 font-size: 2.5rem;
             }
             
-            .products {
+            .treats {
                 grid-template-columns: 1fr;
             }
+        }
+
+        /* Login Popup Styles */
+        .login-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .login-form input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #ff5252;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Blueberry Bakery</h1>
-        <p>Fresh & Delicious Treats Made with Love</p>
-    </header>
+    <nav class="navbar">
+        <a href="#" class="logo"><i class="fas fa-bread-slice"></i> Blueberry</a>
+        <div class="nav-links">
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+            <a href="#treats"><i class="fas fa-cookie-bite"></i> Treats</a>
+            <a href="#offers"><i class="fas fa-gift"></i> Offers</a>
+            <a href="#about"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a>
+            <a href="#" onclick="toggleLogin()"><i class="fas fa-user"></i> Login</a>
+        </div>
+    </nav>
+
+    <!-- Login Popup -->
+    <div class="login-popup" id="loginPopup">
+        <div class="login-content">
+            <span class="close-btn" onclick="toggleLogin()">&times;</span>
+            <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Login</h2>
+            <form class="login-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
 
     <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="bakery.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+        </video>
         <div class="hero-content">
-            <h1>Welcome to Blueberry Bakery</h1>
+            <h1>Welcome to Blueberry </h1>
             <p>Discover our handcrafted delights made with the finest ingredients</p>
-            <button class="btn" onclick="scrollToProducts()">Explore Our Products</button>
+            <button class="btn" onclick="scrollToTreats()">Explore Our Treats</button>
         </div>
     </section>
 
-    <section class="products" id="products">
-        <div class="product-card">
+    <section class="treats" id="treats">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cakes">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Custom Cakes</h3>
                 <p>Beautifully decorated cakes for all occasions</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1534620808146-d33bb39128c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pastries">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Fresh Pastries</h3>
                 <p>Flaky and delicious pastries made daily</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cupcakes">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Cupcakes</h3>
                 <p>Adorable cupcakes with creative toppings</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Croissants">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Croissants</h3>
                 <p>Buttery and flaky French-style croissants</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pies">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Fresh Pies</h3>
                 <p>Homemade pies with seasonal fillings</p>
                 <button class="btn">Order Now</button>
             </div>
         </div>
 
-        <div class="product-card">
+        <div class="treat-card">
             <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Doughnuts">
-            <div class="product-info">
+            <div class="treat-info">
                 <h3>Doughnuts</h3>
                 <p>Freshly made doughnuts with various glazes</p>
                 <button class="btn">Order Now</button>
@@ -203,13 +336,13 @@
     </footer>
 
     <script>
-        function scrollToProducts() {
-            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        function scrollToTreats() {
+            document.getElementById('treats').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Add animation to product cards on scroll
+        // Add animation to treat cards on scroll
         window.addEventListener('scroll', function() {
-            const cards = document.querySelectorAll('.product-card');
+            const cards = document.querySelectorAll('.treat-card');
             cards.forEach(card => {
                 const cardTop = card.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
@@ -219,6 +352,20 @@
                 }
             });
         });
+
+        // Add login popup functionality
+        function toggleLogin() {
+            const popup = document.getElementById('loginPopup');
+            popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Close popup when clicking outside
+        window.onclick = function(event) {
+            const popup = document.getElementById('loginPopup');
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html> 
