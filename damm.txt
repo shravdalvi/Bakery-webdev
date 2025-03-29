@@ -1,0 +1,41 @@
+<section class="pie-category">
+        <h2 class="category-title">Chocolate Pies</h2>
+        <div class="pie-grid" id="chocolatePies">
+            <div class="pie-card">
+                <img src="chocolatechesspie.jpg" alt="Chocolate Pie">
+                <div class="pie-info">
+                    <h3>Chocolate Chess Pie</h3>
+                    <p>Rich dark chocolate with whipped cream</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="mousse pie.jpg" alt="Chocolate Mousse Pie">
+                <div class="pie-info">
+                    <h3>Chocolate Mousse Pie</h3>
+                    <p>Light and fluffy chocolate mousse</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+            <div class="pie-card">
+                <img src="peanut butter pie.jpg" alt="Chocolate Peanut Butter Pie">
+                <div class="pie-info">
+                    <h3>Chocolate Peanut Butter Pie</h3>
+                    <p>Perfect blend of chocolate and peanut butter</p>
+                    <button class="btn">Order Now</button>
+                </div>
+            </div>
+        </div>
+    
+    <div class="pie-card">
+        <img src="peanut butter pie.jpg" alt="Chocolate Peanut Butter Pie">
+        <div class="pie-info">
+            <h3>Chocolate Peanut Butter Pie</h3>
+            <p>Perfect blend of chocolate and peanut butter</p>
+            <button class="btn">Order Now</button>
+        </div>
+    </div>
+</div>
+        <button class="scroll-btn scroll-left" onclick="scrollPies('chocolatePies', -300)"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right" onclick="scrollPies('chocolatePies', 300)"><i class="fas fa-chevron-right"></i></button>
+    </section>
