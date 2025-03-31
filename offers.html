@@ -251,12 +251,6 @@
         </div>
     </nav>
 
-    <section class="home-slider owl-carousel img" style="background-image: url(images/bg_1.jpg);">
-            <h1>Welcome to Blueberry </h1>
-                <p>Discover our handcrafted delights made with the finest ingredients</p>
-                <button class="btn" onclick="scrollToTreats()">Explore Our Treats</button>
-    </section>
-
     <!-- Login Popup -->
     <div class="login-popup" id="loginPopup">
         <div class="login-content">
@@ -271,118 +265,13 @@
     </div>
 
     <section class="hero">
-
         <video autoplay muted loop playsinline>
             <source src="bakery.mp4" type="video/mp4">
                 Your browser does not support the video tag.
         </video>
-        
-    </section>
-
-    <nav class="navbar">
-        <a href="#" class="logo"><i class="fas fa-bread-slice"></i> Blueberry</a>
-        <div class="nav-links">
-            <a href="pies.html"><i class="fas fa-home"></i> Home</a>
-            <a href="customcakes.html"><i class="fas fa-cookie-bite"></i> Treats</a>
-            <a href="offers.html"><i class="fas fa-gift"></i> Offers</a>
-            <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
-            <a href="#" onclick="toggleLogin()"><i class="fas fa-user"></i> Login</a>
-        </div>
-    </nav>
-
-
-    <section class="treats" id="treats">
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cakes">
-            <div class="treat-info">
-                <h3>Custom Cakes</h3>
-                <p>Beautifully decorated cakes for all occasions</p>
-                <button class="btn">Order Now</button>
-            </div>
-        </div>
-
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1534620808146-d33bb39128c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pastries">
-            <div class="treat-info">
-                <h3>Fresh Pastries</h3>
-                <p>Flaky and delicious pastries made daily</p>
-                <button class="btn">Order Now</button>
-            </div>
-        </div>
-
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cupcakes">
-            <div class="treat-info">
-                <h3>Cupcakes</h3>
-                <p>Adorable cupcakes with creative toppings</p>
-                <button class="btn">Order Now</button>
-            </div>
-        </div>
-
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Croissants">
-            <div class="treat-info">
-                <h3>Croissants</h3>
-                <p>Buttery and flaky French-style croissants</p>
-                <button class="btn">Order Now</button>
-            </div>
-        </div>
-
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1621743478914-4b796d8e0f94?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Pies">
-            <div class="treat-info">
-                <h3>Fresh Pies</h3>
-                <p>Homemade pies with seasonal fillings</p>
-                <button class="btn">Order Now</button>
-            </div>
-        </div>
-
-        <div class="treat-card">
-            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Doughnuts">
-            <div class="treat-info">
-                <h3>Doughnuts</h3>
-                <p>Freshly made doughnuts with various glazes</p>
-                <button class="btn">Order Now</button>
-            </div>
+        <div class="hero-content">
+            <h1>Welcome to Blueberry </h1>
+            <p>Discover our handcrafted delights made with the finest ingredients</p>
+            <button class="btn" onclick="scrollToTreats()">Explore Our Treats</button>
         </div>
     </section>
-
-    <footer>
-        <p>&copy; 2024 Blueberry Bakery. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function scrollToTreats() {
-            document.getElementById('treats').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Add animation to treat cards on scroll
-        window.addEventListener('scroll', function() {
-            const cards = document.querySelectorAll('.treat-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (cardTop < windowHeight * 0.8) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        // Add login popup functionality
-        function toggleLogin() {
-            const popup = document.getElementById('loginPopup');
-            popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        // Close popup when clicking outside
-        window.onclick = function(event) {
-            const popup = document.getElementById('loginPopup');
-            if (event.target === popup) {
-                popup.style.display = 'none';
-            }
-        }
-    </script>
-</body>
-</html> 
